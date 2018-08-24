@@ -16,21 +16,19 @@ namespace DirtyWebApiControllers.Migrations
 
         protected override void Seed(DirtyWebApiControllers.Data.CustomerDbContext context)
         {
-            context.Customers.AddOrUpdate(new Customer
+            context.Customers.AddOrUpdate(c => c.Id , new Customer
             {
                 Id = 1,
                 FirstName = "John",
                 LastName = "Smith",
                 FavoriteIceCream = "Moose Tracks"
-            });
-            context.Customers.AddOrUpdate(new Customer
+            }, new Customer
             {
                 Id = 2,
                 FirstName = "Paul",
                 LastName = "Bunyan",
                 FavoriteIceCream = "Chocolate"
-            });
-            context.Customers.AddOrUpdate(new Customer
+            }, new Customer
             {
                 Id = 3,
                 FirstName = "Jenny",
