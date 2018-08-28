@@ -12,5 +12,6 @@ namespace DirtyWebApiControllers.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FavoriteIceCream { get; set; }
+        public string SocialSecurityNumber { get; set; }
     }
 }

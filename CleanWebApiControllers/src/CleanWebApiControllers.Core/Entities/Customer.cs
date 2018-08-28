@@ -13,6 +13,6 @@ namespace CleanWebApiControllers.Core.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FavoriteIceCream { get; set; }
-        public string MySecret { get; set; }
+        public string SocialSecurityNumber { get; set; }
     }
 }
