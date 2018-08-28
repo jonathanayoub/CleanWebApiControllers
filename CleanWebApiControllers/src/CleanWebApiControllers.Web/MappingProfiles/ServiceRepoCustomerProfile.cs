@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 
 namespace CleanWebApiControllers.Web.MappingProfiles
 {
@@ -14,6 +8,7 @@ namespace CleanWebApiControllers.Web.MappingProfiles
         {
             CreateMap<Models.Customer, Core.Entities.Customer>();
             CreateMap<Core.Entities.Customer, Models.Customer>();
+            CreateMap<Models.ClientCustomer, Core.Entities.Customer>();
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CleanWebApiControllers.Core.Entities;
 using CleanWebApiControllers.Core.Interfaces;
 
@@ -10,24 +8,68 @@ namespace CleanWebApiControllers.Infrastructure.Data
 {
     public class InMemoryCustomerRepository : ICustomerRepository
     {
+        private static List<Customer> _customers;
+
+        static InMemoryCustomerRepository()
+        {
+            SeedCustomers();
+        }
+
+        private static void SeedCustomers()
+        {
+            _customers = new List<Customer>
+            {
+                new Customer
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    FirstName = "John",
+                    LastName = "Smith",
+                    FavoriteIceCream = "Moose Tracks"
+                },
+                new Customer
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    FirstName = "Paul",
+                    LastName = "Bunyan",
+                    FavoriteIceCream = "Chocolate"
+                },
+                new Customer
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    FirstName = "Jenny",
+                    LastName = "Parks",
+                    FavoriteIceCream = "Vanilla"
+                }
+            };
+        }
+
         public IList<Customer> GetAll()
         {
-            throw new NotImplementedException();
+            return _customers;
         }
 
         public Customer Get(string id)
         {
-            throw new NotImplementedException();
+            return _customers.SingleOrDefault(c => c.Id == id);
         }
 
         public Customer Update(Customer customer)
         {
-            throw new NotImplementedException();
+            var existingCustomer = _customers.SingleOrDefault(c => c.Id == customer.Id);
+            if(existingCustomer == null)
+                throw new ArgumentException("Attempt to update a customer that doesn't exist");
+            existingCustomer.FavoriteIceCream = customer.FavoriteIceCream;
+            existingCustomer.FirstName = customer.FirstName;
+            existingCustomer.LastName = customer.LastName;
+            return existingCustomer;
         }
 
         public Customer Create(Customer customer)
         {
-            throw new NotImplementedException();
+            var newCustomerId = Guid.NewGuid().ToString();
+            customer.Id = newCustomerId;
+            _customers.Add(customer);
+            return customer;
         }
     }
 }

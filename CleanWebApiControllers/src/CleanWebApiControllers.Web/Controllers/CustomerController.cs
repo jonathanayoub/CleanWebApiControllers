@@ -18,29 +18,33 @@ namespace CleanWebApiControllers.Web.Controllers
         }
 
         [HttpPost, Route(""), ResponseType(typeof(int))]
-        public IHttpActionResult Post(Customer customer)
+        public IHttpActionResult Post(ClientCustomer customer)
         {
-            return CreatedAtRoute("GetById", new {}, 1);
+            var newCustomer = _customersService.Create(customer);
+            return CreatedAtRoute("GetById", newCustomer, newCustomer.Id);
         }
 
         [HttpGet, Route(""), ResponseType(typeof(List<string>))]
-        public IHttpActionResult Get()
+        public IHttpActionResult GetAll()
         {
-            return Ok();
+            var customers = _customersService.GetAll();
+            return Ok(customers);
         }
 
-        [HttpGet, Route("{id:int}", Name = "GetById"), ResponseType(typeof(int))]
-        public IHttpActionResult Get(int id)
+        [HttpGet, Route("{id}", Name = "GetById"), ResponseType(typeof(Customer))]
+        public IHttpActionResult Get(string id)
         {
-            if (id <= 0)
+            var matchingCustomer = _customersService.Get(id);
+            if (matchingCustomer == null)
                 return NotFound();
 
-            return Ok();
+            return Ok(matchingCustomer);
         }
 
         [HttpPut, Route("", Name = "Update")]
         public IHttpActionResult Update(Customer customer)
         {
+            _customersService.Update(customer);
             return Ok();
         }
     }

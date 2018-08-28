@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using CleanWebApiControllers.Core.Interfaces;
 using CleanWebApiControllers.Web.Models;
@@ -22,22 +19,30 @@ namespace CleanWebApiControllers.Web.AppLayer
 
         public IList<Customer> GetAll()
         {
-            return new List<Customer>();
+            var repoCustomers = _customerRepository.GetAll();
+            var apiCustomers = _mapper.Map<IList<Customer>>(repoCustomers);
+            return apiCustomers;
         }
 
         public Customer Get(string id)
         {
-            return new Customer();
+            var repoCustomer = _customerRepository.Get(id);
+            var apiCustomer = _mapper.Map<Customer>(repoCustomer);
+            return apiCustomer;
         }
 
         public Customer Update(Customer customer)
         {
-            return new Customer();
+            var repoCustomer = _mapper.Map<Core.Entities.Customer>(customer);
+            var result = _customerRepository.Update(repoCustomer);
+            return _mapper.Map<Customer>(result);
         }
 
         public Customer Create(ClientCustomer newCustomer)
         {
-            return new Customer();
+            var repoCustomer = _mapper.Map<Core.Entities.Customer>(newCustomer);
+            var result = _customerRepository.Create(repoCustomer);
+            return _mapper.Map<Customer>(result);
         }
     }
 }
